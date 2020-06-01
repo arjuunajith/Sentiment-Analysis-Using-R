@@ -70,6 +70,30 @@ letterCloud(w,
             word = "apple",
             size=1)
 
+# Sentiment analysis
+library(syuzhet)
+library(lubridate)
+library(ggplot2)
+library(scales)
+library(reshape2)
+library(dplyr)
+
+# Read file
+apple <- read.csv(file.choose(), header = T)
+tweets <- iconv(apple$text, to='UTF-8', sub = "byte")
+
+# Obtain sentiment scores
+s <- get_nrc_sentiment(tweets)
+head(s)
+tweets[4]
+get_nrc_sentiment('delay')
+
+# Bar plot
+barplot(colSums(s),
+        las = 2,
+        col = rainbow(10),
+        ylab = 'Count',
+        main = 'Sentiment Scores for Apple Tweets')
 
 
 
