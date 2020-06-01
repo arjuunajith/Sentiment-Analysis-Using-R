@@ -41,6 +41,35 @@ w <- rowSums(tdm)
 w <- subset(w, w>=25)
 barplot(w,
         las = 2,
-        col = "")
+        col = "blue")
 
-#
+#Creating a Worldcloud
+library(RColorBrewer)
+library(wordcloud)
+w <- sort(rowSums(tdm), decreasing = TRUE)
+set.seed(222)
+wordcloud(words = names(w),
+          freq = w,
+          max.words = 150,
+          random.order = F,
+          min.freq = 5,
+          colors = brewer.pal(8, 'Dark2'),
+          scale = c(5, 0.3),
+          rot.per = 0.7)
+
+library(wordcloud2)
+w <- data.frame(names(w), w)
+colnames(w) <- c('word', 'freq')
+wordcloud2(w,
+           size = 0.7,
+           shape = 'triangle',
+           rotateRatio = 0.5,
+           minSize = 1)
+
+letterCloud(w,
+            word = "apple",
+            size=1)
+
+
+
+
